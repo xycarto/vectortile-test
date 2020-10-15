@@ -7,7 +7,7 @@ var settings = {
 
   var styles = {
     paPointsWebmer: {	// Apply these options to the "water" layer...
-      radius: 3,
+      //radius: 3,
       fillColor: "#ff7800",
       color: "#000",
       weight: 1,
@@ -17,8 +17,6 @@ var settings = {
   };
 
 var url = "https://xycarto.github.io/vectortile-test/tippe/{z}/{x}/{y}.pbf";
-
-
 
 var vector = L.vectorGrid.protobuf(url, {
   vectorTileLayerStyles: styles,
