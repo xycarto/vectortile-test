@@ -3,20 +3,24 @@ var settings = {
     attribution: '<a href="http://www.linz.govt.nz">Sourced from LINZ. CC-BY 4.0</a>', //Simple attribution for linz
   };
 
-var styles = {
-  interactive: true,
-  vectorTileLayerStyles: {
-    LiDAR_available_now: {
-      weight: 0,
-      fillColor: "#e4a5e4",
-      fillOpacity: 0.75,
-      fill: true
-  }}
-};
-
-//var url = "http://localhost:8000/tippe/{z}/{x}/{y}.pbf";
-
-var url = "https://xycarto.github.io/vectortile-test/available_now/{z}/{x}/{y}.pbf";
+  var styles = {
+    vectorTileLayerStyles: {
+      LiDAR_available_now: function(properties,zoom) {
+          var level = map.getZoom();
+          var weight = 0;
+          if (level >= 8) {weight = 1;}
+          return {
+            weight: weight,
+            fillColor: "#e4a5e4",
+            fillOpacity: 0.75,
+            fill: true
+          }
+    }}
+  };
+  
+  //var url = "http://localhost:8000/available_now/{z}/{x}/{y}.pbf";
+  
+  var url = "https://xycarto.github.io/vectortile-test/available_now/{z}/{x}/{y}.pbf";
 
 var vector = L.vectorGrid.protobuf(url, styles);
 
