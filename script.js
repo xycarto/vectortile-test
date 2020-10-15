@@ -16,7 +16,9 @@ var settings = {
     }
   };
 
-var url = "http://localhost:8000/tippe/{z}/{x}/{y}.pbf";
+var url = "https://xycarto.github.io/vectortile-test/tippe/{z}/{x}/{y}.pbf";
+
+
 
 var vector = L.vectorGrid.protobuf(url, {
   vectorTileLayerStyles: styles,
