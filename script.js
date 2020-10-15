@@ -8,16 +8,18 @@ var settings = {
       LiDAR_available_now: function(properties,zoom) {
           var level = map.getZoom();
           var weight = 0;
-          if (level >= 8) {weight = 1;}
+          if (level >= 8) {weight = 1.5;}
           return {
             weight: weight,
+            opacity: 1,
+            color: "#d677d6",
             fillColor: "#e4a5e4",
             fillOpacity: 0.75,
             fill: true
           }
     }}
   };
-  
+
   //var url = "http://localhost:8000/available_now/{z}/{x}/{y}.pbf";
   
   var url = "https://xycarto.github.io/vectortile-test/available_now/{z}/{x}/{y}.pbf";
