@@ -45,7 +45,7 @@ var url = "https://xycarto.github.io/vectortile-test/available_now/{z}/{x}/{y}.p
 var vector = L.vectorGrid.protobuf(url, styles)
   .on('click', function(e) {
     L.popup()
-      .setContent(e.layer.properties.name)
+      .setContent(e.layer.properties.name + ' <br></br>' + e.layer.properties.DataDEM)
       .setLatLng(e.latlng)
       .openOn(map);
   });
