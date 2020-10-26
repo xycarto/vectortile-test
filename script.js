@@ -4,12 +4,12 @@ var settingsBasemap = {
 };
 
  
-//Vector tiles
+//Vector Tiles: Available
 
 //layer url
-var urlVector = "https://xycarto.github.io/vectortile-test/available_now/{z}/{x}/{y}.pbf";
+var urlVectorAvailable = "https://xycarto.github.io/vectortile-test/available_now/{z}/{x}/{y}.pbf";
 
-var stylesStart = {
+var stylesStartAvailable = {
     interactive: true,
     getFeatureID: function(f) {
       return f.layer.properties;
@@ -31,10 +31,10 @@ var stylesStart = {
 };
 
 
-var vector = L.vectorGrid.protobuf(urlVector, stylesStart)
+var vectorAvailable = L.vectorGrid.protobuf(urlVectorAvailable, stylesStartAvailable)
 .on('click', function(e) {
     L.popup()
-      .setContent('Name: ' + e.layer.properties.name + ' <br></br>' + 'DEM: ' + e.layer.properties.DataDEM)
+      .setContent('Name: ' + e.layer.properties.name + ' <br></br>' + 'DEM: ' + e.layer.properties.DataDEM+ ' <br></br>' + 'DSM: ' + e.layer.properties.DataDSM+ ' <br></br>' + 'Point Cloud: ' + e.layer.properties.DataPointC)
       .setLatLng(e.latlng)
       .openOn(map);
 })
@@ -62,7 +62,7 @@ var basemap = new L.TileLayer('https://tiles.maps.linz.io/nz_colour_basemap/GLOB
 var map = new L.Map('map',
  {center: [-39.9, 175.2], 
  zoom: 6,
- layers: [basemap, vector]
+ layers: [basemap, vectorAvailable]
 }); 
 
 map.addLayer(map);
