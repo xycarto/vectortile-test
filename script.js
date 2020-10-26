@@ -32,7 +32,7 @@ var stylesStart = {
 
 
 var vector = L.vectorGrid.protobuf(urlVector, stylesStart)
-.on('mouseover', function(e) {
+.on('click', function(e) {
     L.popup()
       .setContent('Name: ' + e.layer.properties.name + ' <br></br>' + 'DEM: ' + e.layer.properties.DataDEM)
       .setLatLng(e.latlng)
