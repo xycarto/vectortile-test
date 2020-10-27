@@ -35,7 +35,7 @@ var stylesStartAvailable = {
 var vectorAvailable = L.vectorGrid.protobuf(urlVectorAvailable, stylesStartAvailable)
 .on('click', function(e) {
     L.popup()
-      .setContent('Name: ' + e.layer.properties.name + ' <br></br>' + 'DEM: ' + e.layer.properties.DataDEM+ ' <br></br>' + 'DSM: ' + e.layer.properties.DataDSM+ ' <br></br>' + 'Point Cloud: ' + e.layer.properties.DataPointC)
+      .setContent('Name: ' + e.layer.properties.name + ' <br></br>' + 'Digital Elevation Model: ' + '<a href="' + e.layer.properties.DataDEM + '" target="_blank">DEM</a>' + ' <br></br>' + 'Digital Surface Model: '  + '<a href="'+ e.layer.properties.DataDSM + '" target="_blank">DSM</a>' + ' <br></br>' + 'Point Cloud: ' + '<a href="' + e.layer.properties.DataPointC+ '" target="_blank">LAS</a>' )
       .setLatLng(e.latlng)
       .openOn(map);
 })
