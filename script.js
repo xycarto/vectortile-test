@@ -3,7 +3,8 @@ var settingsBasemap = {
     attribution: '<a href="http://www.linz.govt.nz">Sourced from LINZ. CC-BY 4.0</a>', //Simple attribution for linz
 };
 
- 
+//Begin vector tiles
+
 //Vector Tiles: Available
 
 //layer url
@@ -30,7 +31,7 @@ var stylesStartAvailable = {
     }}
 };
 
-
+//add functionality to vector layer
 var vectorAvailable = L.vectorGrid.protobuf(urlVectorAvailable, stylesStartAvailable)
 .on('click', function(e) {
     L.popup()
@@ -54,17 +55,93 @@ var vectorAvailable = L.vectorGrid.protobuf(urlVectorAvailable, stylesStartAvail
   });
 });
 
+
+//Vector Tiles: Underway
+
+//layer url
+var urlVectorUnderway = "https://xycarto.github.io/vectortile-test/LiDARprojectsunderway/{z}/{x}/{y}.pbf";
+
+var stylesStartUnderway = {
+    interactive: true,
+    getFeatureID: function(f) {
+      return f.layer.properties;
+    },
+    vectorTileLayerStyles: {
+      'LiDARprojectsunderway': function(properties,zoom) {
+          var level = map.getZoom();
+          var weight = 0;
+          if (level >= 8) {weight = 1.5;}
+          return {
+            weight: weight,
+            opacity: 1,
+            color: "#d677d6",
+            fillColor: "blue",
+            fillOpacity: 0.75,
+            fill: true
+          }
+    }}
+};
+
+//add functionality to vector layer
+var vectorUnderway = L.vectorGrid.protobuf(urlVectorUnderway, stylesStartUnderway)
+.on('click', function(e) {
+    L.popup()
+      .setContent('Name: ' + e.layer.properties.name)
+      .setLatLng(e.latlng)
+      .openOn(map);
+})
+.on("mouseover", function(e) {
+  e.layer.setStyle({
+    fillColor: "yellow"
+  })
+})
+.on("mouseout", function(e) {
+  e.layer.setStyle({
+    //weight: weight,
+    opacity: 1,
+    color: "#d677d6",
+    fillColor: "blue",
+    fillOpacity: 0.75,
+    fill: true
+  });
+});
+
+// end vector tiles
+
 //Base map
 var basemap = new L.TileLayer('https://tiles.maps.linz.io/nz_colour_basemap/GLOBAL_MERCATOR/{z}/{x}/{y}.png', settingsBasemap)
 
+// Layer control
+var basemaps = {
+  "LINZ Colour Base Map": basemap
+};
+
+var overlays = {
+  Available: vectorAvailable,
+  Coming: vectorUnderway
+};
+
+var settingsControl = {
+collapsed: false
+};
+
+//end layer control
 
 //build all maps
 var map = new L.Map('map',
  {center: [-39.9, 175.2], 
  zoom: 6,
- layers: [basemap, vectorAvailable]
+ layers: basemap
 }); 
 
+//L.Control.Zoom({ position: 'bottomright' }).addTo(map);
+
+L.control.layers(basemaps, overlays, settingsControl).addTo(map);
+
 map.addLayer(map);
+
+
+
+//map.addControl(new L.Control.Permalink({ text: 'Permalink', layers: layers }));
 
 

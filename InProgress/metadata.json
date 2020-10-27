@@ -1,0 +1,14 @@
+{
+"name": "/home/ireese/vectortile-test/InProgress",
+"description": "/home/ireese/vectortile-test/InProgress",
+"version": "2",
+"minzoom": "0",
+"maxzoom": "14",
+"center": "174.078369,-41.533254,14",
+"bounds": "167.309963,-46.912382,178.107555,-36.421344",
+"type": "overlay",
+"format": "pbf",
+"generator": "tippecanoe v1.36.0",
+"generator_options": "tippecanoe -r1 --no-tile-compression '--projection=EPSG:3857' --output-to-directory /home/ireese/vectortile-test/InProgress /home/ireese/testing/vectorTiles/LiDARShapefiles/json_webmer/InProgress.json",
+"json": "{\"vector_layers\": [ { \"id\": \"InProgress\", \"description\": \"\", \"minzoom\": 0, \"maxzoom\": 14, \"fields\": {\"DEM\": \"String\", \"DSM\": \"String\", \"PointCloud\": \"String\", \"ProjectCom\": \"String\", \"ProjectSta\": \"String\", \"PulseDensi\": \"String\", \"Region\": \"String\", \"Shape_Area\": \"Number\", \"Shape_Leng\": \"Number\"} } ],\"tilestats\": {\"layerCount\": 1,\"layers\": [{\"layer\": \"InProgress\",\"count\": 11,\"geometry\": \"Polygon\",\"attributeCount\": 9,\"attributes\": [{\"attribute\": \"DEM\",\"count\": 1,\"type\": \"string\",\"values\": [\"Yes\"]},{\"attribute\": \"DSM\",\"count\": 1,\"type\": \"string\",\"values\": [\"Yes\"]},{\"attribute\": \"PointCloud\",\"count\": 1,\"type\": \"string\",\"values\": [\"Yes\"]},{\"attribute\": \"ProjectCom\",\"count\": 1,\"type\": \"string\",\"values\": [\"November 2023\"]},{\"attribute\": \"ProjectSta\",\"count\": 2,\"type\": \"string\",\"values\": [\"January 2020\",\"January 2021\"]},{\"attribute\": \"PulseDensi\",\"count\": 1,\"type\": \"string\",\"values\": [\"4ppsqm\"]},{\"attribute\": \"Region\",\"count\": 8,\"type\": \"string\",\"values\": [\"Bay of Plenty\",\"Canterbury\",\"Hawkes Bay\",\"Marlborough\",\"Southland\",\"Tasman\",\"Waikato\",\"West Coast\"]},{\"attribute\": \"Shape_Area\",\"count\": 9,\"type\": \"number\",\"values\": [12280442950.5,13189947.8633,14191296977.7,16792263194.9,23319649647.2,24578239227.3,45207197584.4,6620311965.42,9649728155.8],\"min\": 13189947.8633,\"max\": 45207197584.4},{\"attribute\": \"Shape_Leng\",\"count\": 9,\"type\": \"number\",\"values\": [1049595.35441,1110355.02357,1400380.96937,1723903.10595,1848464.03092,2177078.92716,35137.8253964,715960.507954,948804.825004],\"min\": 35137.8253964,\"max\": 2177078.92716}]}]}}"
+}
