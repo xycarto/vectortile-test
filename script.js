@@ -56,18 +56,18 @@ var vectorAvailable = L.vectorGrid.protobuf(urlVectorAvailable, stylesStartAvail
 });
 
 
-//Vector Tiles: Underway
+//Vector Tiles: Coming Soon
 
 //layer url
-var urlVectorUnderway = "https://xycarto.github.io/vectortile-test/LiDARprojectsunderway/{z}/{x}/{y}.pbf";
+var urlVectorComingSoon = "https://xycarto.github.io/vectortile-test/ComingSoon/{z}/{x}/{y}.pbf";
 
-var stylesStartUnderway = {
+var stylesStartComingSoon = {
     interactive: true,
     getFeatureID: function(f) {
       return f.layer.properties;
     },
     vectorTileLayerStyles: {
-      'LiDARprojectsunderway': function(properties,zoom) {
+      'ComingSoon': function(properties,zoom) {
           var level = map.getZoom();
           var weight = 0;
           if (level >= 8) {weight = 1.5;}
@@ -83,7 +83,7 @@ var stylesStartUnderway = {
 };
 
 //add functionality to vector layer
-var vectorUnderway = L.vectorGrid.protobuf(urlVectorUnderway, stylesStartUnderway)
+var vectorComingSoon = L.vectorGrid.protobuf(urlVectorComingSoon, stylesStartComingSoon)
 .on('click', function(e) {
     L.popup()
       .setContent('Name: ' + e.layer.properties.name)
@@ -106,6 +106,56 @@ var vectorUnderway = L.vectorGrid.protobuf(urlVectorUnderway, stylesStartUnderwa
   });
 });
 
+//Vector Tiles: In Progress
+
+//layer url
+var urlVectorInProgress = "https://xycarto.github.io/vectortile-test/InProgress/{z}/{x}/{y}.pbf";
+
+var stylesStartInProgress = {
+    interactive: true,
+    getFeatureID: function(f) {
+      return f.layer.properties;
+    },
+    vectorTileLayerStyles: {
+      'InProgress': function(properties,zoom) {
+          var level = map.getZoom();
+          var weight = 0;
+          if (level >= 8) {weight = 1.5;}
+          return {
+            weight: weight,
+            opacity: 1,
+            color: "#d677d6",
+            fillColor: "red",
+            fillOpacity: 0.75,
+            fill: true
+          }
+    }}
+};
+
+//add functionality to vector layer
+var vectorInProgress = L.vectorGrid.protobuf(urlVectorInProgress, stylesStartInProgress)
+.on('click', function(e) {
+    L.popup()
+      .setContent('Name: ' + e.layer.properties.name)
+      .setLatLng(e.latlng)
+      .openOn(map);
+})
+.on("mouseover", function(e) {
+  e.layer.setStyle({
+    fillColor: "yellow"
+  })
+})
+.on("mouseout", function(e) {
+  e.layer.setStyle({
+    //weight: weight,
+    opacity: 1,
+    color: "#d677d6",
+    fillColor: "red",
+    fillOpacity: 0.75,
+    fill: true
+  });
+});
+
 // end vector tiles
 
 //Base map
@@ -117,8 +167,9 @@ var basemaps = {
 };
 
 var overlays = {
-  Available: vectorAvailable,
-  Coming: vectorUnderway
+  "Available Now": vectorAvailable,
+  "Coming Soon": vectorComingSoon,
+  "In Progress": vectorInProgress
 };
 
 var settingsControl = {
