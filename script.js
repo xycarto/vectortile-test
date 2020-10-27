@@ -95,8 +95,11 @@ var stylesStartComingSoon = {
 //add functionality to vector layer
 var vectorComingSoon = L.vectorGrid.protobuf(urlVectorComingSoon, stylesStartComingSoon)
 .on('click', function(e) {
+  var popupName = '<h3 style="text-align: center;">' + e.layer.properties.Region + '</h3>';
+  var popupCompletion = '<div id="popUpText"><strong>Projected Delivery: </strong>' + e.layer.properties.DataDelive + '</div>';
+  var popupData = '<div id="popUpText"><strong>Data Collection: </strong><ul><li>DEM: '+ e.layer.properties.DEM + '</li><li>DSM: ' + e.layer.properties.DSM + '</li><li>Point Cloud: ' + e.layer.properties.PointCloud + '</li></ul></div>';
     L.popup()
-      .setContent('Name: ' + e.layer.properties.Region)
+      .setContent(popupName + popupCompletion + popupData)
       .setLatLng(e.latlng)
       .openOn(map);
 })
@@ -110,7 +113,7 @@ var vectorComingSoon = L.vectorGrid.protobuf(urlVectorComingSoon, stylesStartCom
     //weight: weight,
     opacity: 1,
     color: "#9e7500",
-    fillColor: "#d26a6c",
+    fillColor: "#ffe18a",
     fillOpacity: 0.75,
     fill: true
   });
@@ -145,8 +148,11 @@ var stylesStartInProgress = {
 //add functionality to vector layer
 var vectorInProgress = L.vectorGrid.protobuf(urlVectorInProgress, stylesStartInProgress)
 .on('click', function(e) {
+  var popupName = '<h3 style="text-align: center;">' + e.layer.properties.Region + '</h3>';
+  var popupCompletion = '<div id="popUpText"><strong>Projected Completion: </strong>' + e.layer.properties.ProjectCom + '</div>';
+  var popupData = '<div id="popUpText"><strong>Data Collection: </strong><ul><li>DEM: '+ e.layer.properties.DEM + '</li><li>DSM: ' + e.layer.properties.DSM + '</li><li>Point Cloud: ' + e.layer.properties.PointCloud + '</li></ul></div>';
     L.popup()
-      .setContent('Name: ' + e.layer.properties.Region)
+      .setContent(popupName + popupCompletion + popupData)
       .setLatLng(e.latlng)
       .openOn(map);
 })
