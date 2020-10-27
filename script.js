@@ -31,11 +31,16 @@ var stylesStartAvailable = {
     }}
 };
 
+//'Name: ' + e.layer.properties.name + ' <br></br>' + 'Digital Elevation Model: ' + '<a href="' + e.layer.properties.DataDEM + '" target="_blank">DEM</a>' + ' <br></br>' + 'Digital Surface Model: '  + '<a href="'+ e.layer.properties.DataDSM + '" target="_blank">DSM</a>' + ' <br></br>' + 'Point Cloud: ' + '<a href="' + e.layer.properties.DataPointC+ '" target="_blank">LAS</a>' 
+
 //add functionality to vector layer
 var vectorAvailable = L.vectorGrid.protobuf(urlVectorAvailable, stylesStartAvailable)
 .on('click', function(e) {
+var popupName = '<h3 style="text-align: center;">' + e.layer.properties.name + '</h3>';
+var popupDensity = '<div id="popUpText">Point Density: ' + e.layer.properties.point_dens + '</div>'
+var popupDEM = '<div id="popUpText">Get Data: ' + '<ul><li><a href="' + e.layer.properties.DataDEM + '" target="_blank">Digital Elevation Model(DEM)</a></li><li><a href="'+ e.layer.properties.DataDSM + '" target="_blank">Digital Surface Model(DSM)</a></li><li><a href="' + e.layer.properties.DataPointC+ '" target="_blank">Point Cloud(LAS)</a></li></ul></div>';
     L.popup()
-      .setContent('Name: ' + e.layer.properties.name + ' <br></br>' + 'Digital Elevation Model: ' + '<a href="' + e.layer.properties.DataDEM + '" target="_blank">DEM</a>' + ' <br></br>' + 'Digital Surface Model: '  + '<a href="'+ e.layer.properties.DataDSM + '" target="_blank">DSM</a>' + ' <br></br>' + 'Point Cloud: ' + '<a href="' + e.layer.properties.DataPointC+ '" target="_blank">LAS</a>' )
+      .setContent(popupName + popupDensity + popupDEM)
       .setLatLng(e.latlng)
       .openOn(map);
 })

@@ -7,3 +7,8 @@ html, body {
 #map {
   height: 100%;
 }
+
+#popUpText {
+  color: #222222;
+  font-family: Helvetica, Arial, sans-serif;
+}
