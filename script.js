@@ -18,7 +18,7 @@ var stylesStartAvailable = {
     vectorTileLayerStyles: {
       'LiDAR_available_now': function(properties,zoom) {
           var level = map.getZoom();
-          var weight = 0;
+          var weight = 0.5;
           if (level >= 8) {weight = 1.5;}
           return {
             weight: weight,
@@ -59,7 +59,7 @@ var popupGetData = '<div id="popUpText"><strong>Get Data: </strong>' + '<ul><li>
     //weight: weight,
     opacity: 1,
     color: "#d677d6",
-    fillColor: "#e4a5e4",
+    fillColor: "#ffe18a",
     fillOpacity: 0.75,
     fill: true
   });
@@ -79,13 +79,13 @@ var stylesStartComingSoon = {
     vectorTileLayerStyles: {
       'ComingSoon': function(properties,zoom) {
           var level = map.getZoom();
-          var weight = 0;
+          var weight = 0.5;
           if (level >= 8) {weight = 1.5;}
           return {
             weight: weight,
             opacity: 1,
-            color: "#d677d6",
-            fillColor: "blue",
+            color: "#9e7500",
+            fillColor: "#ffe18a",
             fillOpacity: 0.75,
             fill: true
           }
@@ -109,8 +109,8 @@ var vectorComingSoon = L.vectorGrid.protobuf(urlVectorComingSoon, stylesStartCom
   e.layer.setStyle({
     //weight: weight,
     opacity: 1,
-    color: "#d677d6",
-    fillColor: "blue",
+    color: "#9e7500",
+    fillColor: "#d26a6c",
     fillOpacity: 0.75,
     fill: true
   });
@@ -129,13 +129,13 @@ var stylesStartInProgress = {
     vectorTileLayerStyles: {
       'InProgress': function(properties,zoom) {
           var level = map.getZoom();
-          var weight = 0;
+          var weight = 0.5;
           if (level >= 8) {weight = 1.5;}
           return {
             weight: weight,
             opacity: 1,
-            color: "#d677d6",
-            fillColor: "red",
+            color: "#972d2f",
+            fillColor: "#d26a6c",
             fillOpacity: 0.75,
             fill: true
           }
@@ -159,8 +159,8 @@ var vectorInProgress = L.vectorGrid.protobuf(urlVectorInProgress, stylesStartInP
   e.layer.setStyle({
     //weight: weight,
     opacity: 1,
-    color: "#d677d6",
-    fillColor: "red",
+    color: "#972d2f",
+    fillColor: "#d26a6c",
     fillOpacity: 0.75,
     fill: true
   });
