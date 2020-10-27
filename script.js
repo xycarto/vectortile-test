@@ -37,10 +37,15 @@ var stylesStartAvailable = {
 var vectorAvailable = L.vectorGrid.protobuf(urlVectorAvailable, stylesStartAvailable)
 .on('click', function(e) {
 var popupName = '<h3 style="text-align: center;">' + e.layer.properties.name + '</h3>';
-var popupDensity = '<div id="popUpText">Point Density: ' + e.layer.properties.point_dens + '</div>'
+var popupDensity = '<div id="popUpText">Point Density: ' + e.layer.properties.point_dens + '</div>';
+var popupVertical = '<div id="popUpText">Vertical Datum: ' + e.layer.properties.vertical_d + '</div>';
+var popupHorizontal = '<div id="popUpText">Horizontal Datum: ' + e.layer.properties.horizontal + '</div>';
+var popupSupplier = '<div id="popUpText">Supplier: ' + e.layer.properties.supplier + '</div>';
+var popupFlownFrom = '<div id="popUpText">Flown From: ' + e.layer.properties.flown_from + '</div>';
+var popupFlownTo = '<div id="popUpText">Flown To: ' + e.layer.properties.flown_to + '</div>';
 var popupDEM = '<div id="popUpText">Get Data: ' + '<ul><li><a href="' + e.layer.properties.DataDEM + '" target="_blank">Digital Elevation Model(DEM)</a></li><li><a href="'+ e.layer.properties.DataDSM + '" target="_blank">Digital Surface Model(DSM)</a></li><li><a href="' + e.layer.properties.DataPointC+ '" target="_blank">Point Cloud(LAS)</a></li></ul></div>';
     L.popup()
-      .setContent(popupName + popupDensity + popupDEM)
+      .setContent(popupName + popupDensity + popupDEM + popupVertical + popupHorizontal + popupSupplier + popupFlownFrom + popupFlownTo)
       .setLatLng(e.latlng)
       .openOn(map);
 })
