@@ -96,7 +96,7 @@ var stylesStartComingSoon = {
 var vectorComingSoon = L.vectorGrid.protobuf(urlVectorComingSoon, stylesStartComingSoon)
 .on('click', function(e) {
     L.popup()
-      .setContent('Name: ' + e.layer.properties.name)
+      .setContent('Name: ' + e.layer.properties.Region)
       .setLatLng(e.latlng)
       .openOn(map);
 })
@@ -146,7 +146,7 @@ var stylesStartInProgress = {
 var vectorInProgress = L.vectorGrid.protobuf(urlVectorInProgress, stylesStartInProgress)
 .on('click', function(e) {
     L.popup()
-      .setContent('Name: ' + e.layer.properties.name)
+      .setContent('Name: ' + e.layer.properties.Region)
       .setLatLng(e.latlng)
       .openOn(map);
 })
