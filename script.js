@@ -59,7 +59,7 @@ var popupGetData = '<div id="popUpText"><strong>Get Data: </strong>' + '<ul><li>
     //weight: weight,
     opacity: 1,
     color: "#d677d6",
-    fillColor: "#ffe18a",
+    fillColor: "#e4a5e4",
     fillOpacity: 0.75,
     fill: true
   });
