@@ -18,7 +18,7 @@ var placesource = new ol.source.VectorTile({
   tilePixelRatio: 1, // oversampling when > 1
   tileGrid: ol.tilegrid.createXYZ({ maxZoom: 14, tileSize: 4096}),
   format: new ol.format.MVT(),
-  url: 'http://localhost:8000/tiles/{z}/{x}/{y}.pbf'
+  url: 'http://xycarto.github.io/vectortile-test/tiles/{z}/{x}/{y}.pbf'
 
 });
 
