@@ -1,4 +1,4 @@
-//tippecanoe --no-tile-compression --no-clipping -b 127 -pk -r1 -d 8 -D 8 --output-to-directory "/home/ireese/static.vector.tiles.names/tiles" /home/ireese/labelsTesting/labelsTesting/data/wellyRegion_townBay_wgs.geojson
+
 
 //Tile Services Map
 var urlTemplate =
