@@ -2,7 +2,7 @@
 
 //Tile Services Map
 var urlTemplate =
-  "https://tiles.maps.linz.io/nz_colour_basemap/GLOBAL_MERCATOR/{z}/{x}/{y}.png";
+  "http://tiles.maps.linz.io/nz_colour_basemap/GLOBAL_MERCATOR/{z}/{x}/{y}.png";
 
 // Set raster layer
 var layer = new ol.layer.Tile({
