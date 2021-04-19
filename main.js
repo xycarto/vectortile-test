@@ -2,7 +2,7 @@
 
 //Tile Services Map
 var urlTemplate =
-  "http://tiles.maps.linz.io/nz_colour_basemap/GLOBAL_MERCATOR/{z}/{x}/{y}.png";
+  "https://tiles.maps.linz.io/nz_colour_basemap/GLOBAL_MERCATOR/{z}/{x}/{y}.png";
 
 // Set raster layer
 var layer = new ol.layer.Tile({
@@ -18,7 +18,7 @@ var placesource = new ol.source.VectorTile({
   tilePixelRatio: 1, // oversampling when > 1
   tileGrid: ol.tilegrid.createXYZ({ maxZoom: 14, tileSize: 4096}),
   format: new ol.format.MVT(),
-  url: 'http://xycarto.github.io/vectortile-test/tiles/{z}/{x}/{y}.pbf'
+  url: 'https://xycarto.github.io/vectortile-test/tiles/{z}/{x}/{y}.pbf'
 
 });
 
