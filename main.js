@@ -45,6 +45,7 @@ var labelStyle = new ol.style.Style({
   }),
 });
 
+/*
 var simpleStyle = new ol.style.Style({
   image: new ol.style.Circle({
     fill: fill,
@@ -57,7 +58,7 @@ var simpleStyle = new ol.style.Style({
     color: '#00ff00',
     width: 2
   })
-})
+})*/
 
 
 var vectorMap = new ol.layer.VectorTile({
