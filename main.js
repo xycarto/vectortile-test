@@ -23,17 +23,19 @@ var placesource = new ol.source.VectorTile({
 });
 
 var fill = new ol.style.Fill({
-  color: 'rgb(255, 255, 255)'
+  color: 'red'
 })
 
 var stroke =new ol.style.Stroke({
-  color: '#00ff00',
-  width: 8
+  color: 'red',
+  width: 0
 })
 
 var labelStyle = new ol.style.Style({
   text: new ol.style.Text({
     font: '12px Calibri,sans-serif',
+    offsetX : -20,
+    offsetY : -12,
     overflow: true,
     fill: new ol.style.Fill({
       color: '#000',
@@ -43,6 +45,11 @@ var labelStyle = new ol.style.Style({
       width: 3,
     }),
   }),
+  image: new ol.style.Circle({
+    fill: fill,
+    stroke: stroke,
+    radius: 2}),
+      
 });
 
 /*
