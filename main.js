@@ -64,7 +64,7 @@ var waterStyle = new ol.style.Style({
       color: 'blue',
     }),
     stroke: new ol.style.Stroke({
-      color: 'blue',
+      color: '#fff',
       width: 3,
     }),
   }),
