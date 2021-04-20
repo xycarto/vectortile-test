@@ -14,7 +14,7 @@ var layer = new ol.layer.Tile({
 
 var placesource = new ol.source.VectorTile({
   cacheSize: 0,
-  overlaps: true,
+  overlaps: false,
   tilePixelRatio: 1, // oversampling when > 1
   tileGrid: ol.tilegrid.createXYZ({ maxZoom: 14, tileSize: 4096}),
   format: new ol.format.MVT(),
@@ -31,9 +31,11 @@ var stroke =new ol.style.Stroke({
   width: 0
 })
 
+var textSize = {};
+
 var labelStyle = new ol.style.Style({
   text: new ol.style.Text({
-    font: '12px Calibri,sans-serif',
+    //font: '10px Calibri,sans-serif',
     offsetX : -20,
     offsetY : -12,
     overflow: true,
@@ -54,7 +56,7 @@ var labelStyle = new ol.style.Style({
 
 var waterStyle = new ol.style.Style({
   text: new ol.style.Text({
-    font: '12px Calibri,sans-serif',
+    //font: 'Calibri,sans-serif',
     offsetX : 0,
     offsetY : 0,
     overflow: true,
@@ -92,33 +94,40 @@ var vectorMap = new ol.layer.VectorTile({
   style: function (feature) {
     //labelStyle.getText().setText(feature.get('name'));
     var descCode = feature.get('desc_code');
-    var size = feature.get('size');
     var zoomCheck = map.getView().getZoom();
+    var textSize = feature.get('size') / 7;
     if (zoomCheck < 10 && descCode === "METR") {
         if (descCode === "BAY") {
+          waterStyle.getText().setFont('italic ' + textSize + 'em "Calibri", sans-serif');
           waterStyle.getText().setText(feature.get('name'));
           return waterStyle;
         } else {
+          labelStyle.getText().setFont(textSize + 'em "Calibri", sans-serif');
           labelStyle.getText().setText(feature.get('name'));
           return labelStyle;
         } 
     } else if ((zoomCheck >= 10 && zoomCheck <= 12 && descCode === "METR" ) || (zoomCheck >= 10 && zoomCheck <= 12 && descCode === "SBRB" )) {
         if (descCode === "BAY") {
+          waterStyle.getText().setFont('italic ' + textSize + 'em "Calibri", sans-serif');
           waterStyle.getText().setText(feature.get('name'));
           return waterStyle;
         } else {
+          labelStyle.getText().setFont(textSize + 'em "Calibri", sans-serif');
           labelStyle.getText().setText(feature.get('name'));
+          //console.log(labelStyle.getText());
           return labelStyle;
         }
     } else if (zoomCheck > 12) {
       if (descCode === "BAY") {
+        waterStyle.getText().setFont('italic ' + textSize + 'em "Calibri", sans-serif');
         waterStyle.getText().setText(feature.get('name'));
         return waterStyle;
       } else {
+        labelStyle.getText().setFont(textSize + 'em "Calibri", sans-serif');
         labelStyle.getText().setText(feature.get('name'));
         return labelStyle;
       }
-  }
+    }
   },
   renderMode: 'vector',
   source: placesource,
