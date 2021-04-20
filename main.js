@@ -93,36 +93,36 @@ var vectorMap = new ol.layer.VectorTile({
     //labelStyle.getText().setText(feature.get('name'));
     var descCode = feature.get('desc_code');
     var zoomCheck = map.getView().getZoom();
-    var textSize = feature.get('size') / 7;
-    var textSizeSmallZoom = feature.get('size') / 15;
+    var textSize = feature.get('size') * 2.5;
+    var textSizeSmallZoom = feature.get('size');
     if (zoomCheck < 10 && descCode === "METR") {
         if (descCode === "BAY") {
-          waterStyle.getText().setFont('italic ' + textSizeSmallZoom + 'em "Calibri", sans-serif');
+          waterStyle.getText().setFont('italic ' + textSizeSmallZoom + 'px "Calibri", sans-serif');
           waterStyle.getText().setText(feature.get('name'));
           return waterStyle;
         } else {
-          labelStyle.getText().setFont(textSizeSmallZoom + 'em "Calibri", sans-serif');
+          labelStyle.getText().setFont(textSizeSmallZoom + 'px "Calibri", sans-serif');
           labelStyle.getText().setText(feature.get('name'));
           return labelStyle;
         } 
     } else if ((zoomCheck >= 10 && zoomCheck <= 12 && descCode === "METR" ) || (zoomCheck >= 10 && zoomCheck <= 12 && descCode === "SBRB" )) {
         if (descCode === "BAY") {
-          waterStyle.getText().setFont('italic ' + textSize + 'em "Calibri", sans-serif');
+          waterStyle.getText().setFont('italic ' + textSize + 'px "Calibri", sans-serif');
           waterStyle.getText().setText(feature.get('name'));
           return waterStyle;
         } else {
-          labelStyle.getText().setFont(textSize + 'em "Calibri", sans-serif');
+          labelStyle.getText().setFont(textSize + 'px "Calibri", sans-serif');
           labelStyle.getText().setText(feature.get('name'));
           //console.log(labelStyle.getText());
           return labelStyle;
         }
     } else if (zoomCheck > 12) {
       if (descCode === "BAY") {
-        waterStyle.getText().setFont('italic ' + textSize + 'em "Calibri", sans-serif');
+        waterStyle.getText().setFont('italic ' + textSize + 'px "Calibri", sans-serif');
         waterStyle.getText().setText(feature.get('name'));
         return waterStyle;
       } else {
-        labelStyle.getText().setFont(textSize + 'em "Calibri", sans-serif');
+        labelStyle.getText().setFont(textSize + 'px "Calibri", sans-serif');
         labelStyle.getText().setText(feature.get('name'));
         return labelStyle;
       }
