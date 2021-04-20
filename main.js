@@ -52,6 +52,27 @@ var labelStyle = new ol.style.Style({
       
 });
 
+var waterStyle = new ol.style.Style({
+  text: new ol.style.Text({
+    font: '12px Calibri,sans-serif',
+    offsetX : 0,
+    offsetY : 0,
+    overflow: true,
+    fill: new ol.style.Fill({
+      color: 'blue',
+    }),
+    stroke: new ol.style.Stroke({
+      color: 'blue',
+      width: 3,
+    }),
+  }),
+  image: new ol.style.Circle({
+    fill: fill,
+    stroke: stroke,
+    radius: 0}),
+      
+});
+
 /*
 var simpleStyle = new ol.style.Style({
   image: new ol.style.Circle({
@@ -67,16 +88,53 @@ var simpleStyle = new ol.style.Style({
   })
 })*/
 
-
 var vectorMap = new ol.layer.VectorTile({
   style: function (feature) {
-    labelStyle.getText().setText(feature.get('name'));
-    return labelStyle;
+    //labelStyle.getText().setText(feature.get('name'));
+    var descCode = feature.get('desc_code');
+    var size = feature.get('size');
+    var zoomCheck = map.getView().getZoom();
+    if (zoomCheck < 10 && descCode === "METR") {
+        if (descCode === "BAY") {
+          waterStyle.getText().setText(feature.get('name'));
+          return waterStyle;
+        } else {
+          labelStyle.getText().setText(feature.get('name'));
+          return labelStyle;
+        } 
+    } else if ((zoomCheck >= 10 && zoomCheck <= 12 && descCode === "METR" ) || (zoomCheck >= 10 && zoomCheck <= 12 && descCode === "SBRB" )) {
+        if (descCode === "BAY") {
+          waterStyle.getText().setText(feature.get('name'));
+          return waterStyle;
+        } else {
+          labelStyle.getText().setText(feature.get('name'));
+          return labelStyle;
+        }
+    } else if (zoomCheck > 12) {
+      if (descCode === "BAY") {
+        waterStyle.getText().setText(feature.get('name'));
+        return waterStyle;
+      } else {
+        labelStyle.getText().setText(feature.get('name'));
+        return labelStyle;
+      }
+  }
   },
   renderMode: 'vector',
   source: placesource,
   declutter: true
 })
+
+/*
+var vectorMap = new ol.layer.VectorTile({
+  style: function (feature) {
+    labelStyle.getText().setText(feature.get('desc_code'));
+    return labelStyle;
+  },
+  renderMode: 'vector',
+  source: placesource,
+  declutter: true
+})*/
 
 // Add base map to HTML map container
 var map = new ol.Map({
@@ -119,3 +177,13 @@ function refresh() {
   source.tileCache.clear();
   source.refresh();
 }
+
+// get zoom
+var currZoom = map.getView().getZoom();
+map.on('moveend', function(e) {
+  var newZoom = map.getView().getZoom();
+  if (currZoom != newZoom) {
+    console.log('zoom end, new zoom: ' + newZoom);
+    currZoom = newZoom;
+  }
+});
