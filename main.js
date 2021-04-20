@@ -31,8 +31,6 @@ var stroke =new ol.style.Stroke({
   width: 0
 })
 
-var textSize = {};
-
 var labelStyle = new ol.style.Style({
   text: new ol.style.Text({
     //font: '10px Calibri,sans-serif',
@@ -96,13 +94,14 @@ var vectorMap = new ol.layer.VectorTile({
     var descCode = feature.get('desc_code');
     var zoomCheck = map.getView().getZoom();
     var textSize = feature.get('size') / 7;
+    var textSizeSmallZoom = feature.get('size') / 15;
     if (zoomCheck < 10 && descCode === "METR") {
         if (descCode === "BAY") {
-          waterStyle.getText().setFont('italic ' + textSize + 'em "Calibri", sans-serif');
+          waterStyle.getText().setFont('italic ' + textSizeSmallZoom + 'em "Calibri", sans-serif');
           waterStyle.getText().setText(feature.get('name'));
           return waterStyle;
         } else {
-          labelStyle.getText().setFont(textSize + 'em "Calibri", sans-serif');
+          labelStyle.getText().setFont(textSizeSmallZoom + 'em "Calibri", sans-serif');
           labelStyle.getText().setText(feature.get('name'));
           return labelStyle;
         } 
