@@ -85,10 +85,6 @@ var labelStyle = new ol.style.Style({
 /*
 var labelStyle_highlight = new ol.style.Style({
   text: new ol.style.Text({
-    //font: '10px Calibri,sans-serif',
-    offsetX : -20,
-    offsetY : -12,
-    overflow: true,
     fill: new ol.style.Fill({
       color: '#000000',
     }),
@@ -96,12 +92,7 @@ var labelStyle_highlight = new ol.style.Style({
       color: 'rgba(50,65,50,0.85)',
       width: 3,
     }),
-  }),
-  image: new ol.style.Circle({
-    fill: fill,
-    stroke: stroke,
-    radius: 2}),
-      
+  }),      
 });*/
 
 var labelStyle_largeScale = new ol.style.Style({
@@ -215,6 +206,47 @@ var map = new ol.Map({
 map.addOverlay(overlay);
 
 //Hover Features
+/*
+// Selection
+var selection = {};
+
+var selectionLayer = new ol.layer.VectorTile({
+  map: map,
+  renderMode: 'vector',
+  source: placesource,
+  style: function (feature) {
+    if (feature.getProperties() in selection) {
+      console.log(selection);
+      return labelStyle_highlight;
+    }
+  },
+});
+
+map.on('pointermove', hoverEvent);
+
+function hoverEvent(evt) {
+  vectorMap.getFeatures(evt.pixel).then(function (features) {
+    
+    if (!features.length) {
+      selection = {};
+      selectionLayer.changed();
+      return;
+    }
+    var feature = features[0];
+    if (!feature) {
+      return;
+    }
+    var fid = feature.getProperties();
+    //console.log(fid);
+
+    
+    // add selected feature to lookup
+    selection[fid] = feature;
+
+    selectionLayer.changed();
+  });
+};
+*/
 
 /*
 var selected = null;
@@ -239,19 +271,22 @@ function getFeature (evt) {
 
 //Select Features
 
-map.on('singleclick', showInfo);
+map.on('click', showInfo);
 
 function showInfo(evt) {
   var coordinate = evt.coordinate;
-  console.log(coordinate);
+  //console.log(coordinate);
   //content.innerHTML = 'you clicked here';
   
   var features = map.getFeaturesAtPixel(evt.pixel);
-  if (features.length == 0) {
-    content.innerText = '';
-    content.style.opacity = 0;
+
+  if (!features.length) {
+    content = {};
+    //content.style.opacity = 0;
+    overlay.changed();
     return;
   }
+
   console.log(features[0].getProperties().name_ascii);
   var title = features[0].getProperties().name_ascii;
   var story = features[0].getProperties().desc_code;
