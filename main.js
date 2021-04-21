@@ -2,6 +2,8 @@
 var container = document.getElementById('popup');
 var content = document.getElementById('popup-content');
 var closer = document.getElementById('popup-closer');
+var popTitle = document.getElementById('popTitle');
+var popStory = document.getElementById('popStory');
 
 // Layer for pop up
 
@@ -51,11 +53,11 @@ var placesource = new ol.source.VectorTile({
 // vector tile styles
 
 var fill = new ol.style.Fill({
-  color: 'red'
+  color: '#f4f2e5'
 })
 
 var stroke =new ol.style.Stroke({
-  color: 'red',
+  color: '#f4f2e5',
   width: 0
 })
 
@@ -66,10 +68,10 @@ var labelStyle = new ol.style.Style({
     offsetY : -12,
     overflow: true,
     fill: new ol.style.Fill({
-      color: '#000',
+      color: '#f4f2e5',
     }),
     stroke: new ol.style.Stroke({
-      color: '#fff',
+      color: 'rgba(50,65,50,0.85)',
       width: 3,
     }),
   }),
@@ -80,6 +82,27 @@ var labelStyle = new ol.style.Style({
       
 });
 
+var labelStyle_largeScale = new ol.style.Style({
+  text: new ol.style.Text({
+    //font: '10px Calibri,sans-serif',
+    offsetX : 0,
+    offsetY : 0,
+    overflow: true,
+    fill: new ol.style.Fill({
+      color: '#f4f2e5',
+    }),
+    stroke: new ol.style.Stroke({
+      color: 'rgba(50,65,50,0.85)',
+      width: 3,
+    }),
+  }),
+  image: new ol.style.Circle({
+    fill: fill,
+    stroke: stroke,
+    radius: 0}),
+      
+});
+
 var waterStyle = new ol.style.Style({
   text: new ol.style.Text({
     //font: 'Calibri,sans-serif',
@@ -87,10 +110,10 @@ var waterStyle = new ol.style.Style({
     offsetY : 0,
     overflow: true,
     fill: new ol.style.Fill({
-      color: 'blue',
+      color: '#55717d',
     }),
     stroke: new ol.style.Stroke({
-      color: '#fff',
+      color: '#dceaf0',
       width: 3,
     }),
   }),
@@ -138,9 +161,9 @@ var vectorMap = new ol.layer.VectorTile({
         waterStyle.getText().setText(feature.get('name'));
         return waterStyle;
       } else {
-        labelStyle.getText().setFont(textSize + 'px "Calibri", sans-serif');
-        labelStyle.getText().setText(feature.get('name'));
-        return labelStyle;
+        labelStyle_largeScale.getText().setFont(textSize + 'px "Calibri", sans-serif');
+        labelStyle_largeScale.getText().setText(feature.get('name'));
+        return labelStyle_largeScale;
       }
     }
   },
@@ -184,8 +207,11 @@ function showInfo(evt) {
     content.style.opacity = 0;
     return;
   }
-  var properties = features[0].getProperties();
-  content.innerHTML = JSON.stringify(properties, null, 2);
+  console.log(features[0].getProperties().name_ascii);
+  var title = features[0].getProperties().name_ascii;
+  var story = features[0].getProperties().desc_code;
+  popTitle.innerHTML = title + '<hr>';
+  popStory.innerHTML = title + ' is considered a ' + story + ' by the LINZ geographic placenames layer. This pop up window is here to demonstrate how we can collect data from the attibutes of a vector tile, derived from a shapefile, and display those results in a window.  The ' + story + ' is taken directly from attibutes of the vector tile; as well as the ' + title + ' name.';
   //content.style.opacity = 1;
 
   overlay.setPosition(coordinate);
