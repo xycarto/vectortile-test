@@ -149,17 +149,6 @@ var vectorMap = new ol.layer.VectorTile({
   declutter: true
 })
 
-/*
-var vectorMap = new ol.layer.VectorTile({
-  style: function (feature) {
-    labelStyle.getText().setText(feature.get('desc_code'));
-    return labelStyle;
-  },
-  renderMode: 'vector',
-  source: placesource,
-  declutter: true
-})*/
-
 // Add base map to HTML map container
 
 var map = new ol.Map({
@@ -175,38 +164,19 @@ var map = new ol.Map({
     ),
     //overlays: [overlay],
     zoom: 10,
-    //minZoom: 12,
-    //maxZoom: 15,
   })
 });
 
 map.addOverlay(overlay);
 
-//***********Select Features */
-
-
-
+//Select Features
 
 map.on('singleclick', showInfo);
-
-/*
-map.on('singleclick', function (evt) {
-  var coordinate = evt.coordinate;
-  console.log(coordinate);
-  content.innerHTML = 'you clicked here';
-  overlay.setPosition(coordinate);
-});*/
-
-
-//var info = document.getElementById('info');
-
 
 function showInfo(evt) {
   var coordinate = evt.coordinate;
   console.log(coordinate);
   //content.innerHTML = 'you clicked here';
-  
-
   
   var features = map.getFeaturesAtPixel(evt.pixel);
   if (features.length == 0) {
@@ -221,20 +191,3 @@ function showInfo(evt) {
   overlay.setPosition(coordinate);
 };
 
-/*
-function refresh() {
-  var source = layer.getSource();
-  source.tileCache.expireCache({});
-  source.tileCache.clear();
-  source.refresh();
-}*/
-
-// get zoom
-var currZoom = map.getView().getZoom();
-map.on('moveend', function(e) {
-  var newZoom = map.getView().getZoom();
-  if (currZoom != newZoom) {
-    console.log('zoom end, new zoom: ' + newZoom);
-    currZoom = newZoom;
-  }
-});
