@@ -82,6 +82,27 @@ var labelStyle = new ol.style.Style({
       
 });
 
+var labelStyle_highlight = new ol.style.Style({
+  text: new ol.style.Text({
+    //font: '10px Calibri,sans-serif',
+    offsetX : -20,
+    offsetY : -12,
+    overflow: true,
+    fill: new ol.style.Fill({
+      color: '#000000',
+    }),
+    stroke: new ol.style.Stroke({
+      color: 'rgba(50,65,50,0.85)',
+      width: 3,
+    }),
+  }),
+  image: new ol.style.Circle({
+    fill: fill,
+    stroke: stroke,
+    radius: 2}),
+      
+});
+
 var labelStyle_largeScale = new ol.style.Style({
   text: new ol.style.Text({
     //font: '10px Calibri,sans-serif',
@@ -191,6 +212,29 @@ var map = new ol.Map({
 });
 
 map.addOverlay(overlay);
+
+//Hover Features
+
+/*
+var selected = null;
+
+map.on('pointermove', getFeature); 
+
+function getFeature (evt) {
+  if (selected !== null) {
+    //selected.setStyle(undefined);
+    //selected = null;
+    console.log(selected)
+  }
+
+  
+  var featuresg = map.getFeaturesAtPixel(evt.pixel);
+  console.log(featuresg)
+    //selected = f;
+    //f.getStyle(labelStyle_highlight);
+    //return true;
+};*/
+
 
 //Select Features
 
