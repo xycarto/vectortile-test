@@ -1,6 +1,29 @@
+// pop-up elemants
+var container = document.getElementById('popup');
+var content = document.getElementById('popup-content');
+var closer = document.getElementById('popup-closer');
 
+// Layer for pop up
 
-//Tile Services Map
+var overlay = new ol.Overlay({
+  element: container,
+  autoPan: true,
+  autoPanAnimation: {
+    duration: 250,
+  },
+});
+
+/**
+ * Add a click handler to hide the popup.
+ * @return {boolean} Don't follow the href.
+ */
+ closer.onclick = function () {
+  overlay.setPosition(undefined);
+  closer.blur();
+  return false;
+}
+
+// Tile Services Map
 var urlTemplate =
   "https://tiles.maps.linz.io/nz_colour_basemap/GLOBAL_MERCATOR/{z}/{x}/{y}.png";
 
@@ -12,6 +35,8 @@ var layer = new ol.layer.Tile({
   })
 });
 
+// Set vector layer 
+
 var placesource = new ol.source.VectorTile({
   cacheSize: 0,
   overlaps: false,
@@ -21,6 +46,9 @@ var placesource = new ol.source.VectorTile({
   url: 'https://xycarto.github.io/vectortile-test/tiles/{z}/{x}/{y}.pbf'
 
 });
+
+
+// vector tile styles
 
 var fill = new ol.style.Fill({
   color: 'red'
@@ -73,20 +101,8 @@ var waterStyle = new ol.style.Style({
       
 });
 
-/*
-var simpleStyle = new ol.style.Style({
-  image: new ol.style.Circle({
-    fill: fill,
-    stroke: stroke,
-    radius: 8}),
-  fill: new ol.style.Fill({
-    color: 'rgb(255, 255, 255)'
-  }),
-  stroke: new ol.style.Stroke({
-    color: '#00ff00',
-    width: 2
-  })
-})*/
+
+// Apply styling to vector tile according to attributes
 
 var vectorMap = new ol.layer.VectorTile({
   style: function (feature) {
@@ -145,46 +161,73 @@ var vectorMap = new ol.layer.VectorTile({
 })*/
 
 // Add base map to HTML map container
+
 var map = new ol.Map({
   target: 'map',
   layers: [layer, vectorMap],
   view: new ol.View({
+    minZoom: 6,
     maxZoom: 14,
     center: ol.proj.transform(
       [174.7787, -41.2924],
       "EPSG:4326",
       "EPSG:3857"
     ),
+    //overlays: [overlay],
     zoom: 10,
     //minZoom: 12,
     //maxZoom: 15,
   })
 });
 
+map.addOverlay(overlay);
+
 //***********Select Features */
 
 
-map.on('click', showInfo);
 
-var info = document.getElementById('info');
-function showInfo(event) {
-  var features = map.getFeaturesAtPixel(event.pixel);
+
+map.on('singleclick', showInfo);
+
+/*
+map.on('singleclick', function (evt) {
+  var coordinate = evt.coordinate;
+  console.log(coordinate);
+  content.innerHTML = 'you clicked here';
+  overlay.setPosition(coordinate);
+});*/
+
+
+//var info = document.getElementById('info');
+
+
+function showInfo(evt) {
+  var coordinate = evt.coordinate;
+  console.log(coordinate);
+  //content.innerHTML = 'you clicked here';
+  
+
+  
+  var features = map.getFeaturesAtPixel(evt.pixel);
   if (features.length == 0) {
-    info.innerText = '';
-    info.style.opacity = 0;
+    content.innerText = '';
+    content.style.opacity = 0;
     return;
   }
   var properties = features[0].getProperties();
-  info.innerText = JSON.stringify(properties, null, 2);
-  info.style.opacity = 1;
-}
+  content.innerHTML = JSON.stringify(properties, null, 2);
+  //content.style.opacity = 1;
 
+  overlay.setPosition(coordinate);
+};
+
+/*
 function refresh() {
   var source = layer.getSource();
   source.tileCache.expireCache({});
   source.tileCache.clear();
   source.refresh();
-}
+}*/
 
 // get zoom
 var currZoom = map.getView().getZoom();
