@@ -82,6 +82,7 @@ var labelStyle = new ol.style.Style({
       
 });
 
+/*
 var labelStyle_highlight = new ol.style.Style({
   text: new ol.style.Text({
     //font: '10px Calibri,sans-serif',
@@ -101,7 +102,7 @@ var labelStyle_highlight = new ol.style.Style({
     stroke: stroke,
     radius: 2}),
       
-});
+});*/
 
 var labelStyle_largeScale = new ol.style.Style({
   text: new ol.style.Text({
