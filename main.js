@@ -6,7 +6,6 @@ var popTitle = document.getElementById('popTitle');
 var popStory = document.getElementById('popStory');
 
 // Layer for pop up
-
 var overlay = new ol.Overlay({
   element: container,
   autoPan: true,
@@ -25,7 +24,7 @@ var overlay = new ol.Overlay({
   return false;
 }
 
-// Tile Services Map
+// Raster Tile Services Map
 var urlTemplate =
   "https://tiles.maps.linz.io/nz_colour_basemap/GLOBAL_MERCATOR/{z}/{x}/{y}.png";
 
@@ -38,7 +37,6 @@ var layer = new ol.layer.Tile({
 });
 
 // Set vector layer 
-
 var placesource = new ol.source.VectorTile({
   cacheSize: 1,
   overlaps: false,
@@ -50,12 +48,8 @@ var placesource = new ol.source.VectorTile({
 });
 
 
-// vector tile styles
-
 // Build Vector Map
-
 var vectorMap = new ol.layer.VectorTile({
-  //style: olms.applyStyle('http://localhost:8000/style.json'),
   declutter: true,
   source: placesource,
   renderMode: 'vector',
@@ -64,12 +58,10 @@ var vectorMap = new ol.layer.VectorTile({
 })
 
 
-// Load Map to "map"
-
+// Load Layers to "map"
 var map = new ol.Map({
   target: 'map',
   layers: [layer, vectorMap],
-  //style: "http://localhost:8000/style.json",
   view: new ol.View({
     minZoom: 0,
     maxZoom: 14,
@@ -79,14 +71,14 @@ var map = new ol.Map({
       "EPSG:3857"
     ),
     zoom: 10,
-    //overlays: overlay,
   })
 });
 
+// Add overlay for Popup window
 map.addOverlay(overlay);
 
-//olms.applyStyle('vectorMap', 'wellyRegion_townBay_wgs', 'wellyRegion_townBay_wgs', 'http://localhost:8000/style.json');
 
+// Get JSON for vector tile styles and apply styling to vector tiles
 fetch('./styleText.json').then(function(response) {
   response.json().then(function(glStyle) {
     olms.applyStyle(vectorMap, glStyle, 'wellyRegion_townBay_wgs');
@@ -94,19 +86,16 @@ fetch('./styleText.json').then(function(response) {
 });
 
 //Select Features
-
 map.on('click', showInfo);
 
 function showInfo(evt) {
   var coordinate = evt.coordinate;
   console.log(coordinate);
-  //content.innerHTML = 'you clicked here';
   
   var features = map.getFeaturesAtPixel(evt.pixel);
 
   if (!features.length) {
     content = {};
-    //content.style.opacity = 0;
     overlay.changed();
     return;
   }
@@ -116,7 +105,6 @@ function showInfo(evt) {
   var story = features[0].getProperties().desc_code;
   popTitle.innerHTML = title + '<hr>';
   popStory.innerHTML = title + ' is considered a ' + story + ' by the LINZ geographic placenames layer. This pop up window is here to demonstrate how we can collect data from the attibutes of a vector tile, derived from a shapefile, and display those results in a window.  The ' + story + ' is taken directly from attibutes of the vector tile; as well as the ' + title + ' name.';
-  //content.style.opacity = 1;
 
   overlay.setPosition(coordinate);
 };
