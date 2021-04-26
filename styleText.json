@@ -10,7 +10,7 @@
   "sources": {
     "wellyRegion_townBay_wgs": {
       "type": "vector",
-      "tiles": ["https://tiles.maps.linz.io/nz_colour_basemap/GLOBAL_MERCATOR/{z}/{x}/{y}.png"],
+      "tiles": ["https://xycarto.github.io/vectortile-test/tiles/{z}/{x}/{y}.pbf"],
       "minzoom": 0,
       "maxzoom": 14
     }

@@ -12,7 +12,7 @@ https://xycarto.github.io/vectortile-test/
 
 ### Tippecanoe to create vector tile cache
 
-Tippecanoe requires JSON input.  Best if this JSON is in EPSG:4326 (WGS). Output is XYZ tile cache with uncompressed PBF.  Tile cache for this example is stored in site directory.  Can use S3 or any other method to save tile cache
+Tippecanoe requires JSON input.  Best if this JSON is in EPSG:4326 (WGS). Output is XYZ tile cache with uncompressed PBF.  Tile cache for this example is stored in site directory.  Can use S3 or any other method to save tile cache.
 
 TODO: Work out method to use zipped PBF
 
@@ -23,6 +23,7 @@ TODO: Work out method to use zipped PBF
 Some of the imporant bits for the JS. 
 
 For the JS example see: https://github.com/xycarto/vectortile-test/blob/main/main.js
+For the style file example see here: https://github.com/xycarto/vectortile-test/blob/main/styleText.json
 
 1. The method in this example is loading the vector tile and overaying it on a raster tile cache.  In order to accomplish this, a vector tile cache must be loaded first to the map, THEN the rules from the style JOSN are applied using:
 
