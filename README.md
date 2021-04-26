@@ -44,3 +44,4 @@ fetch('./styleText.json').then(function(response) {
 1. Testing on localhost, it is necessary to disable caching in Firefox
 2. Works poorly in Safari
 3. Still nedd to work out which pieces of code are unnecessary
+4. Labels only for demonstration. No hierarchy built in yet.
