@@ -26,11 +26,13 @@ For the JS example see: https://github.com/xycarto/vectortile-test/blob/main/mai
 
 1. The method in this example is loading the vector tile and overaying it on a raster tile cache.  In order to accomplish this, a vector tile cache must be loaded first to the map, THEN the rules from the style JOSN are applied using:
 
-```fetch('./styleText.json').then(function(response) {
+```
+fetch('./styleText.json').then(function(response) {
   response.json().then(function(glStyle) {
     olms.applyStyle(vectorMap, glStyle, 'wellyRegion_townBay_wgs');
   });
-});```
+});
+```
 
 2. The above uses `olms.applyStyle`. To access this function you will need to add the scipt tag to yout HTML:
 
