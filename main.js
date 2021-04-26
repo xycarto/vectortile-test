@@ -87,7 +87,7 @@ map.addOverlay(overlay);
 
 //olms.applyStyle('vectorMap', 'wellyRegion_townBay_wgs', 'wellyRegion_townBay_wgs', 'http://localhost:8000/style.json');
 
-fetch('http://localhost:8000/styleText.json').then(function(response) {
+fetch('./styleText.json').then(function(response) {
   response.json().then(function(glStyle) {
     olms.applyStyle(vectorMap, glStyle, 'wellyRegion_townBay_wgs');
   });
