@@ -31,7 +31,7 @@ var urlTemplate =
 
 // Set raster layer
 var layer = new ol.layer.Tile({
-  maxZoom: 14,
+  //maxZoom: 10,
   source: new ol.source.XYZ({
     url: urlTemplate
   })
@@ -40,7 +40,7 @@ var layer = new ol.layer.Tile({
 // Set vector layer 
 
 var placesource = new ol.source.VectorTile({
-  cacheSize: 0,
+  cacheSize: 1,
   overlaps: false,
   tilePixelRatio: 1, // oversampling when > 1
   tileGrid: ol.tilegrid.createXYZ({ maxZoom: 14, tileSize: 4096}),
@@ -52,222 +52,46 @@ var placesource = new ol.source.VectorTile({
 
 // vector tile styles
 
-var fill = new ol.style.Fill({
-  color: '#f4f2e5'
-})
-
-var stroke =new ol.style.Stroke({
-  color: '#f4f2e5',
-  width: 0
-})
-
-var labelStyle = new ol.style.Style({
-  text: new ol.style.Text({
-    //font: '10px Calibri,sans-serif',
-    offsetX : -20,
-    offsetY : -12,
-    overflow: true,
-    fill: new ol.style.Fill({
-      color: '#f4f2e5',
-    }),
-    stroke: new ol.style.Stroke({
-      color: 'rgba(50,65,50,0.85)',
-      width: 3,
-    }),
-  }),
-  image: new ol.style.Circle({
-    fill: fill,
-    stroke: stroke,
-    radius: 2}),
-      
-});
-
-/*
-var labelStyle_highlight = new ol.style.Style({
-  text: new ol.style.Text({
-    fill: new ol.style.Fill({
-      color: '#000000',
-    }),
-    stroke: new ol.style.Stroke({
-      color: 'rgba(50,65,50,0.85)',
-      width: 3,
-    }),
-  }),      
-});*/
-
-var labelStyle_largeScale = new ol.style.Style({
-  text: new ol.style.Text({
-    //font: '10px Calibri,sans-serif',
-    offsetX : 0,
-    offsetY : 0,
-    overflow: true,
-    fill: new ol.style.Fill({
-      color: '#f4f2e5',
-    }),
-    stroke: new ol.style.Stroke({
-      color: 'rgba(50,65,50,0.85)',
-      width: 3,
-    }),
-  }),
-  image: new ol.style.Circle({
-    fill: fill,
-    stroke: stroke,
-    radius: 0}),
-      
-});
-
-var waterStyle = new ol.style.Style({
-  text: new ol.style.Text({
-    //font: 'Calibri,sans-serif',
-    offsetX : 0,
-    offsetY : 0,
-    overflow: true,
-    fill: new ol.style.Fill({
-      color: '#55717d',
-    }),
-    stroke: new ol.style.Stroke({
-      color: '#dceaf0',
-      width: 3,
-    }),
-  }),
-  image: new ol.style.Circle({
-    fill: fill,
-    stroke: stroke,
-    radius: 0}),
-      
-});
-
-
-// Apply styling to vector tile according to attributes
+// Build Vector Map
 
 var vectorMap = new ol.layer.VectorTile({
-  style: function (feature) {
-    //labelStyle.getText().setText(feature.get('name'));
-    var descCode = feature.get('desc_code');
-    var zoomCheck = map.getView().getZoom();
-    var textSize = feature.get('size') * 2.5;
-    var textSizeSmallZoom = feature.get('size');
-    if (zoomCheck < 10 && descCode === "METR") {
-        if (descCode === "BAY") {
-          waterStyle.getText().setFont('italic ' + textSizeSmallZoom + 'px "Calibri", sans-serif');
-          waterStyle.getText().setText(feature.get('name'));
-          return waterStyle;
-        } else {
-          labelStyle.getText().setFont(textSizeSmallZoom + 'px "Calibri", sans-serif');
-          labelStyle.getText().setText(feature.get('name'));
-          return labelStyle;
-        } 
-    } else if ((zoomCheck >= 10 && zoomCheck <= 12 && descCode === "METR" ) || (zoomCheck >= 10 && zoomCheck <= 12 && descCode === "SBRB" )) {
-        if (descCode === "BAY") {
-          waterStyle.getText().setFont('italic ' + textSize + 'px "Calibri", sans-serif');
-          waterStyle.getText().setText(feature.get('name'));
-          return waterStyle;
-        } else {
-          labelStyle.getText().setFont(textSize + 'px "Calibri", sans-serif');
-          labelStyle.getText().setText(feature.get('name'));
-          //console.log(labelStyle.getText());
-          return labelStyle;
-        }
-    } else if (zoomCheck > 12) {
-      if (descCode === "BAY") {
-        waterStyle.getText().setFont('italic ' + textSize + 'px "Calibri", sans-serif');
-        waterStyle.getText().setText(feature.get('name'));
-        return waterStyle;
-      } else {
-        labelStyle_largeScale.getText().setFont(textSize + 'px "Calibri", sans-serif');
-        labelStyle_largeScale.getText().setText(feature.get('name'));
-        return labelStyle_largeScale;
-      }
-    }
-  },
-  renderMode: 'vector',
+  //style: olms.applyStyle('http://localhost:8000/style.json'),
+  declutter: true,
   source: placesource,
-  declutter: true
+  renderMode: 'vector',
+  zIndex: 10
+  
 })
 
-// Add base map to HTML map container
+
+// Load Map to "map"
 
 var map = new ol.Map({
   target: 'map',
   layers: [layer, vectorMap],
+  //style: "http://localhost:8000/style.json",
   view: new ol.View({
-    minZoom: 6,
+    minZoom: 0,
     maxZoom: 14,
     center: ol.proj.transform(
-      [174.7787, -41.2924],
+      [174.803467, -41.302571],
       "EPSG:4326",
       "EPSG:3857"
     ),
-    //overlays: [overlay],
     zoom: 10,
+    //overlays: overlay,
   })
 });
 
 map.addOverlay(overlay);
 
-//Hover Features
-/*
-// Selection
-var selection = {};
+//olms.applyStyle('vectorMap', 'wellyRegion_townBay_wgs', 'wellyRegion_townBay_wgs', 'http://localhost:8000/style.json');
 
-var selectionLayer = new ol.layer.VectorTile({
-  map: map,
-  renderMode: 'vector',
-  source: placesource,
-  style: function (feature) {
-    if (feature.getProperties() in selection) {
-      console.log(selection);
-      return labelStyle_highlight;
-    }
-  },
-});
-
-map.on('pointermove', hoverEvent);
-
-function hoverEvent(evt) {
-  vectorMap.getFeatures(evt.pixel).then(function (features) {
-    
-    if (!features.length) {
-      selection = {};
-      selectionLayer.changed();
-      return;
-    }
-    var feature = features[0];
-    if (!feature) {
-      return;
-    }
-    var fid = feature.getProperties();
-    //console.log(fid);
-
-    
-    // add selected feature to lookup
-    selection[fid] = feature;
-
-    selectionLayer.changed();
+fetch('http://localhost:8000/styleText.json').then(function(response) {
+  response.json().then(function(glStyle) {
+    olms.applyStyle(vectorMap, glStyle, 'wellyRegion_townBay_wgs');
   });
-};
-*/
-
-/*
-var selected = null;
-
-map.on('pointermove', getFeature); 
-
-function getFeature (evt) {
-  if (selected !== null) {
-    //selected.setStyle(undefined);
-    //selected = null;
-    console.log(selected)
-  }
-
-  
-  var featuresg = map.getFeaturesAtPixel(evt.pixel);
-  console.log(featuresg)
-    //selected = f;
-    //f.getStyle(labelStyle_highlight);
-    //return true;
-};*/
-
+});
 
 //Select Features
 
@@ -275,7 +99,7 @@ map.on('click', showInfo);
 
 function showInfo(evt) {
   var coordinate = evt.coordinate;
-  //console.log(coordinate);
+  console.log(coordinate);
   //content.innerHTML = 'you clicked here';
   
   var features = map.getFeaturesAtPixel(evt.pixel);
@@ -296,4 +120,3 @@ function showInfo(evt) {
 
   overlay.setPosition(coordinate);
 };
-
